@@ -8,12 +8,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      binary_path: hello
     steps:
       - uses: actions/checkout@v3
       - name: Compile hello.c
         run: gcc hello.c -o hello
       - name: Upload hello binary
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: hello-binary
           path: hello
@@ -24,10 +26,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download hello binary
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: hello-binary
           path: .
+      - name: Make hello executable
+        run: chmod +x hello
       - name: Run test on hello binary
         run: |
           ./hello | grep -q "Hello, World!" && echo "Test passed" || (echo "Test failed" && exit 1)
