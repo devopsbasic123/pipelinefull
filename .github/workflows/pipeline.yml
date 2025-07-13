@@ -15,7 +15,7 @@ jobs:
       - name: Compile hello.c
         run: gcc hello.c -o hello
       - name: Upload hello binary
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: hello-binary
           path: hello
@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download hello binary
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: hello-binary
           path: .
